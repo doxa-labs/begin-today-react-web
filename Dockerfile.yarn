@@ -1,0 +1,20 @@
+FROM node:6.12-alpine
+
+COPY package.json /frontend/
+
+WORKDIR frontend
+
+RUN yarn install
+
+COPY public/ /frontend/public/
+
+COPY src/ /frontend/src/
+
+RUN yarn build
+
+RUN yarn global add serve
+RUN yarn global add flow
+
+CMD serve -s build
+
+EXPOSE 3000
